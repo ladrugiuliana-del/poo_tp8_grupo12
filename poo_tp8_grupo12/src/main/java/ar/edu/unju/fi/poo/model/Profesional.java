@@ -25,9 +25,17 @@ public class Profesional extends Empleado {
         //Sueldo Neto
         return remunerativos + salarioFamiliar - descuentos;
 	}
-	
+
 	public void agregarTitulo(Titulo titulonuevo) {
 		titulos.add(titulonuevo);
 		System.out.println("Titulo agregado exitosamente");
+	}
+	
+	public List<Titulo> getTitulos() {
+		return titulos;
+	}
+
+	public void setTitulos(List<Titulo> titulos) {
+		this.titulos = titulos;
 	}
 }
