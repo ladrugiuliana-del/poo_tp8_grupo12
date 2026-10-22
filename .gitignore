@@ -1,0 +1,69 @@
+/.metadata/
+
+# ==========================================
+# Compilados y Artefactos de Construcción
+# ==========================================
+target/
+build/
+*.class
+*.jar
+*.war
+*.ear
+*.rar
+
+# ==========================================
+# Maven Wrapper Binary
+# ==========================================
+.mvn/wrapper/maven-wrapper.jar
+
+# ==========================================
+# Logs y Archivos Temporales
+# ==========================================
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Eclipse / Spring Tool Suite (STS)
+# ==========================================
+.settings/
+.project
+.classpath
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+# ==========================================
+# IntelliJ IDEA
+# ==========================================
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# ==========================================
+# NetBeans
+# ==========================================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+# ==========================================
+# Documentación y Entorno
+# ==========================================
+HELP.md
+.env
+*.env
+application-local.properties
+application-local.yml
