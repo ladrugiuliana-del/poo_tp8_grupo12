@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public abstract class Empleado {
-	private int legajo;
+	private String legajo;
 	private int documento;
 	private String nombre;
 	private LocalDate fechaIngreso;
 	private int cantidadHijos;
 	public static double sueldoBasico = 400000.0;
 	
-	public Empleado(int legajo, int documento, String nombre, LocalDate fechaIngreso, int cantidadHijos) {
+	public Empleado(String legajo, int documento, String nombre, LocalDate fechaIngreso, int cantidadHijos) {
 		super();
 		this.legajo = legajo;
 		this.documento = documento;
@@ -32,20 +32,14 @@ public abstract class Empleado {
 		return cantidadHijos * 15000.0;
 	}
 	
-	public void mostrarSueldo() {
-		System.out.println("El sueldo del empleado " + nombre + "es de: $" + calcularSueldoNeto());
-	}
-	
-	public void mostrarEmpleado() {
-		System.out.println("Legajo: " + legajo);
-		System.out.println("Documento: " + documento);
-		System.out.println("Nombre: " + nombre);
-		System.out.println("Fecha de Ingreso: " + fechaIngreso);
-		System.out.println("Cantidad de Hijos: " + cantidadHijos);
-		System.out.println("Sueldo Neto " + calcularSueldoNeto());
+	@Override
+	public String toString() {
+		return "Legajo: " + legajo + " | Documento: " + documento + 
+		       " | Nombre: " + nombre + " | Fecha Ingreso: " + fechaIngreso + 
+		       " | Hijos: " + cantidadHijos + " | Sueldo Neto: $" + calcularSueldoNeto();
 	}
 
-	public int getLegajo() {
+	public String getLegajo() {
 		return legajo;
 	}
 
@@ -56,6 +50,12 @@ public abstract class Empleado {
 	public int getDocumento() {
 		return documento;
 	}
+
+	public LocalDate getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public int getCantidadHijos() {
+		return cantidadHijos;
+	}
 }
-
-
