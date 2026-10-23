@@ -19,8 +19,6 @@ public abstract class Empleado {
 		this.fechaIngreso = fechaIngreso;
 		this.cantidadHijos = cantidadHijos;
 	}
-
-	public abstract double calcularSueldoNeto();
 	
 	public double calcularAntiguedad() {
 		if (fechaIngreso == null) return 0.0;
@@ -57,5 +55,20 @@ public abstract class Empleado {
 
 	public int getCantidadHijos() {
 		return cantidadHijos;
+	}
+	
+	public abstract double calcularAdicional();
+	
+	public  double calcularSueldoNeto() {
+		double adicional = calcularAdicional();
+
+        double remunerativos = Empleado.sueldoBasico + adicional + calcularAntiguedad();
+
+        double descuentos = remunerativos * 0.18;
+
+        double salarioFamiliar = calcularSalarioFamiliar();
+
+        //Sueldo Neto
+        return remunerativos + salarioFamiliar - descuentos;
 	}
 }

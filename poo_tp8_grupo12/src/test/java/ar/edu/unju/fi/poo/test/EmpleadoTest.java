@@ -14,7 +14,7 @@ public class EmpleadoTest {
 	@Test
     void testProfesionalConTitulosValido() {
 		
-        Profesional prof1 = new Profesional(101, 38111222, "Carlos Gómez", LocalDate.of(2018, 5, 10), 2);
+        Profesional prof1 = new Profesional("1001-26", 38111222, "Carlos Gómez", LocalDate.of(2018, 5, 10), 2);
         prof1.agregarTitulo(new Titulo(2015, "Ingeniería en Sistemas", "Universitario"));
         prof1.agregarTitulo(new Titulo(2020, "Diplomatura en Datos", "Universitario"));
 
@@ -26,7 +26,7 @@ public class EmpleadoTest {
     @Test
     void testProfesionalSinTitulosLanzaExcepcion() {
         // Caso inválido: Profesional sin títulos
-        Profesional profSinTitulos = new Profesional(102, 39222333, "Ana Martínez", LocalDate.of(2021, 3, 15), 0);
+        Profesional profSinTitulos = new Profesional("1002-26", 39222333, "Ana Martínez", LocalDate.of(2021, 3, 15), 0);
 
         // Verificamos que se lance la excepción personalizada al no tener títulos
         assertThrows(EmpleadoException.class, () -> {
