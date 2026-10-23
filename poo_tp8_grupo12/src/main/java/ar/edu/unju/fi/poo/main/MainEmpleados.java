@@ -2,6 +2,7 @@ package ar.edu.unju.fi.poo.main;
 
 import ar.edu.unju.fi.poo.manager.ManagerEmpleado;
 import ar.edu.unju.fi.poo.model.*;
+import ar.edu.unju.fi.poo.exceptions.EmpleadoException; // Faltaba importar la excepción
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -12,36 +13,42 @@ public class MainEmpleados {
         ManagerEmpleado manager = new ManagerEmpleado();
         Scanner scanner = new Scanner(System.in);
 
-        Profesional prof1 = new Profesional(101, 38111222, "Carlos Gómez", LocalDate.of(2018, 5, 10), 2);
-        prof1.agregarTitulo(new Titulo(2015, "Ingeniería en Sistemas", "Universitario"));
-        prof1.agregarTitulo(new Titulo(2020, "Diplomatura en Datos", "Universitario"));
+        // Punto 1. CORRECCIÓN AAAAA: Los legajos ahora son String con formato NNNN-AA
+        Profesional prof1 = new Profesional("1001-26", 38111222, "Carlos Gómez", LocalDate.of(2018, 5, 10), 2);
+        prof1.agregarTitulo(new Titulo(2015, "ingenieria en Sistemas", "Universitario"));
+        prof1.agregarTitulo(new Titulo(2020, "diplomatura en Datos", "Universitario"));
 
-        Profesional prof2 = new Profesional(102, 39222333, "Ana Martínez", LocalDate.of(2021, 3, 15), 0);
-        prof2.agregarTitulo(new Titulo(2019, "Licenciatura en Administración", "Universitario"));
+        Profesional prof2 = new Profesional("1002-26", 39222333, "Ana Martínez", LocalDate.of(2021, 3, 15), 0);
+        prof2.agregarTitulo(new Titulo(2019, "licenciatura en Administracion", "universitario"));
 
-        Administrativo adm1 = new Administrativo(103, 35444555, "Laura Ríos", LocalDate.of(2015, 8, 20), 1, 'A');
-        Administrativo adm2 = new Administrativo(104, 32666777, "Roberto Peña", LocalDate.of(2010, 11, 5), 3, 'C');
+        Administrativo adm1 = new Administrativo("1003-26", 35444555, "Laura Ríos", LocalDate.of(2015, 8, 20), 1, 'A');
+        Administrativo adm2 = new Administrativo("1004-26", 32666777, "Roberto Peña", LocalDate.of(2010, 11, 5), 3, 'C');
 
-        Limpieza limp1 = new Limpieza(105, 40888999, "Marta Sánchez", LocalDate.of(2022, 1, 10), 2);
-        Limpieza limp2 = new Limpieza(106, 41000111, "Jorge Torres", LocalDate.of(2023, 6, 1), 0);
+        Limpieza limp1 = new Limpieza("1005-26", 40888999, "Marta Sánchez", LocalDate.of(2022, 1, 10), 2);
+        Limpieza limp2 = new Limpieza("1006-26", 41000111, "Jorge Torres", LocalDate.of(2023, 6, 1), 0);
 
-        manager.agregarEmpleado(prof1);
-        manager.agregarEmpleado(prof2);
-        manager.agregarEmpleado(adm1);
-        manager.agregarEmpleado(adm2);
-        manager.agregarEmpleado(limp1);
-        manager.agregarEmpleado(limp2);
-
-        System.out.println("Se cargaron exitosamente los 6 empleados.\n");
+        // Punto 2. CORRECCIÓN xdxd: Agregamos el try-catch porque ahora agregarEmpleado lanza EmpleadoException
+        try {
+            manager.agregarEmpleado(prof1);
+            manager.agregarEmpleado(prof2);
+            manager.agregarEmpleado(adm1);
+            manager.agregarEmpleado(adm2);
+            manager.agregarEmpleado(limp1);
+            manager.agregarEmpleado(limp2);
+            System.out.println("Se cargaron exitosamente los 6 empleados.\n");
+        } catch (EmpleadoException e) {
+            System.out.println("Error al cargar empleados: " + e.getMessage());
+        }
 
         System.out.println("=== LISTA DE EMPLEADOS REGISTRADOS ===");
-        manager.mostrarSueldosTodos();
+        // 3. CORRECCIÓN: Usamos obtenerSueldosTodos() dentro de un println
+        System.out.println(manager.obtenerSueldosTodos());
 
         System.out.println("\n");
         
-        // Buscar un empleado por legajo y mostrar sus datos + sueldo neto
-        System.out.println("--- Buscar por legajo (101) ---");
-        Empleado empB = manager.buscarPorLegajo(101);
+        // 4. CORRECCIÓN: Buscamos usando el legajo en formato texto
+        System.out.println("--- Buscar por legajo (1001-26) ---");
+        Empleado empB = manager.buscarPorLegajo("1001-26");
         if (empB != null) {
             System.out.println("Legajo: " + empB.getLegajo() + " | Nombre: " + empB.getNombre() + 
                                " | Documento: " + empB.getDocumento() + " | Sueldo Neto: $" + empB.calcularSueldoNeto());
@@ -51,9 +58,8 @@ public class MainEmpleados {
         System.out.println();
 
         
-        // Buscar un administrativo por legajo, cambiar su categoría y mostrar sueldo neto
-        System.out.println("--- Modificar categoría de Administrativo (Legajo 103) ---");
-        Empleado empC = manager.buscarPorLegajo(103);
+        System.out.println("--- Modificar categoría de Administrativo (Legajo 1003-26) ---");
+        Empleado empC = manager.buscarPorLegajo("1003-26");
         if (empC instanceof Administrativo) {
             Administrativo admC = (Administrativo) empC;
             System.out.println("Categoría anterior: " + admC.getCategoria() + " | Sueldo Neto Anterior: $" + admC.calcularSueldoNeto());
@@ -65,9 +71,8 @@ public class MainEmpleados {
         System.out.println();
 
         
-        // Buscar un profesional por legajo, agregarle un nuevo título y mostrar sueldo neto
-        System.out.println("--- Agregar título a Profesional (Legajo 102) ---");
-        Empleado empD = manager.buscarPorLegajo(102);
+        System.out.println("--- Agregar título a Profesional (Legajo 1002-26) ---");
+        Empleado empD = manager.buscarPorLegajo("1002-26");
         if (empD instanceof Profesional) {
             Profesional profD = (Profesional) empD;
             System.out.println("Sueldo Neto Anterior: $" + profD.calcularSueldoNeto());
@@ -77,7 +82,6 @@ public class MainEmpleados {
             System.out.println("Nuevo Sueldo Neto (con título extra): $" + profD.calcularSueldoNeto());
         }
         System.out.println();
-
 
         // Empleados de una categoría X y total acumulado de rubros
         System.out.println("--- Empleados Administrativos de Categoría 'C' ---");
